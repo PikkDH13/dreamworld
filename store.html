@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamworld | The Treasury</title>
+    <style>
+        /* --- BASELINE CSS --- */
+        :root {
+            --bg-dark: #09090b;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-hover: rgba(255, 255, 255, 0.07);
+            --text-main: #e0e0e0;
+            --text-dim: #94a3b8;
+            --grad-dream: linear-gradient(135deg, #E0C3FC 0%, #8EC5FC 100%);
+            --grad-copper: linear-gradient(135deg, #e65c00 0%, #f9d423 100%);
+            --grad-blood: linear-gradient(135deg, #ff0000 0%, #550000 100%);
+            --grad-gold: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+
+        /* Background FX */
+        .fog {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(142, 197, 252, 0.05), transparent 60%);
+            z-index: -1; animation: drift 30s infinite linear;
+        }
+        @keyframes drift { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Typography */
+        .gradient-text { background: var(--grad-dream); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .blood-text { background: var(--grad-blood); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(9, 9, 11, 0.9); backdrop-filter: blur(12px);
+            z-index: 100; border-bottom: 1px solid var(--glass-border);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 0.1em; text-decoration: none; }
+        .nav-links a {
+            color: var(--text-dim); text-decoration: none; margin-left: 2rem;
+            transition: 0.3s; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+        }
+        .nav-links a:hover { color: #fff; }
+        .active-link { color: #fda085 !important; }
+
+        /* Header */
+        header { padding: 8rem 5% 4rem 5%; text-align: center; }
+        h1 { font-size: 4rem; margin-bottom: 1rem; }
+        .subtitle { color: var(--text-dim); font-style: italic; }
+
+        /* Store Grid */
+        section { padding: 4rem 10%; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .category-title { font-size: 2rem; margin-bottom: 2rem; border-left: 4px solid #8EC5FC; padding-left: 1rem; }
+        
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
+
+        /* Product Card */
+        .product {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 1.5rem; transition: 0.3s;
+            display: flex; flex-direction: column; justify-content: space-between;
+            height: 100%;
+        }
+        .product:hover { transform: translateY(-5px); background: var(--glass-hover); border-color: rgba(255,255,255,0.2); }
+        
+        .product-icon {
+            width: 80px; height: 80px; margin: 0 auto 1.5rem auto;
+            background: rgba(0,0,0,0.2); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+        }
+        
+        .product h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .product p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.5rem; flex-grow: 1; }
+        
+        .price-tag { font-size: 1.2rem; font-weight: bold; color: #fff; margin-bottom: 1rem; display: block; }
+        
+        .btn-buy {
+            background: var(--glass-border); color: #fff;
+            padding: 0.8rem; text-align: center; border-radius: 8px;
+            text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.8rem;
+            transition: 0.3s; letter-spacing: 0.05em; border: 1px solid transparent;
+        }
+        .btn-buy:hover { background: #fff; color: #000; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+
+        /* Footer */
+        footer { text-align: center; padding: 4rem; color: var(--text-dim); font-size: 0.8rem; border-top: 1px solid var(--glass-border); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            h1 { font-size: 3rem; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="fog"></div>
+
+    <nav>
+        <a href="index.html" class="logo gradient-text">DREAMWORLD</a>
+        <div class="nav-links">
+            <a href="index.html">Reality</a>
+            <a href="#" class="active-link">The Treasury</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1 class="gradient-text">The Treasury</h1>
+        <p class="subtitle">Exchange matter for influence. Support the maintenance of the dream.</p>
+    </header>
+
+    <!-- RANKS SECTION -->
+    <section>
+        <h2 class="category-title" style="border-color: #E0C3FC;">Ascension (Ranks)</h2>
+        <div class="product-grid">
+            
+            <!-- Rank 1 -->
+            <div class="product">
+                <div class="product-icon">🌱</div>
+                <h3>Drifter</h3>
+                <p>Find your footing. Includes 2 Jobs, 3 Sethomes, and Enderchest access.</p>
+                <span class="price-tag">$5.00</span>
+                <a href="#" class="btn-buy">Ascend</a>
+            </div>
+
+            <!-- Rank 2 -->
+            <div class="product">
+                <div class="product-icon">👁️</div>
+                <h3>Lucid</h3>
+                <p>Awareness grants power. Access to The End, /nickname, and Workbench.</p>
+                <span class="price-tag">$10.00</span>
+                <a href="#" class="btn-buy">Ascend</a>
+            </div>
+
+            <!-- Rank 3 -->
+            <div class="product">
+                <div class="product-icon">🔮</div>
+                <h3>Dormien</h3>
+                <p>Master of slumber. Nation access, /back, and personal weather control.</p>
+                <span class="price-tag">$20.00</span>
+                <a href="#" class="btn-buy">Ascend</a>
+            </div>
+
+            <!-- Rank 4 -->
+            <div class="product">
+                <div class="product-icon">✨</div>
+                <h3>Astral</h3>
+                <p>Transcend the blocks. Unlocks Flight, Nametags, and portable Anvil.</p>
+                <span class="price-tag">$35.00</span>
+                <a href="#" class="btn-buy">Ascend</a>
+            </div>
+
+        </div>
+        
+        <p style="text-align: center; margin-top: 3rem; color: #94a3b8; font-style: italic;">
+            The rank of <strong class="blood-text">Elder</strong> cannot be purchased. It is earned by those who survive the dream.
+        </p>
+    </section>
+
+    <!-- KEYS SECTION -->
+    <section>
+        <h2 class="category-title" style="border-color: #e65c00;">Materialization (Keys)</h2>
+        <div class="product-grid">
+            
+            <div class="product">
+                <div class="product-icon" style="color: #f6d365;">🔑</div>
+                <h3>5x Town Keys</h3>
+                <p>The masonry of memory. Construction supplies and decoration.</p>
+                <span class="price-tag">$2.50</span>
+                <a href="#" class="btn-buy">Acquire</a>
+            </div>
+
+            <div class="product">
+                <div class="product-icon" style="color: #434343;">🗝️</div>
+                <h3>3x Blackmarket Keys</h3>
+                <p>Illicit veins. High chance for Copper, String, and rare components.</p>
+                <span class="price-tag">$4.00</span>
+                <a href="#" class="btn-buy">Acquire</a>
+            </div>
+
+            <div class="product">
+                <div class="product-icon" style="color: #4facfe;">🎲</div>
+                <h3>3x Roulette Keys</h3>
+                <p>Fate is loading. Random outcomes from across the loot tables.</p>
+                <span class="price-tag">$4.00</span>
+                <a href="#" class="btn-buy">Acquire</a>
+            </div>
+
+            <div class="product">
+                <div class="product-icon" style="color: #ff0000;">💀</div>
+                <h3>1x Elder Key</h3>
+                <p>Obscured by static. The highest tier of rewards available.</p>
+                <span class="price-tag">$5.00</span>
+                <a href="#" class="btn-buy">Acquire</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content" style="display:flex; justify-content:center; gap:2rem; margin-bottom:2rem;">
+            <a href="#" style="color:#fff; text-decoration:none; display:flex; align-items:center; gap:0.5rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+                <span>Join Discord</span>
+            </a>
+        </div>
+        <p style="opacity: 0.5;">Purchases support the server upkeep.</p>
+        <p style="margin-top: 1rem; opacity: 0.3;">&copy; 2026 Dreamworld Network.</p>
+    </footer>
+
+</body>
+</html>

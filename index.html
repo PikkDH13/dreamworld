@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamworld | The Lucid Reality</title>
+    <style>
+        /* --- THE DREAM PALETTE --- */
+        :root {
+            --bg-dark: #09090b;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-hover: rgba(255, 255, 255, 0.07);
+            --text-main: #e0e0e0;
+            --text-dim: #94a3b8;
+            
+            /* The Gradients (Bold) */
+            --grad-dream: linear-gradient(135deg, #E0C3FC 0%, #8EC5FC 100%);
+            --grad-copper: linear-gradient(135deg, #e65c00 0%, #ffaa00 100%);
+            --grad-blood: linear-gradient(135deg, #ff0000 0%, #990000 100%);
+            --grad-soul: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --grad-gold: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            
+            /* The Gradients (Pastel/Dimmed) */
+            --grad-pastel-green: linear-gradient(135deg, #84fa9f 0%, rgb(167, 255, 191) 100%);
+            --grad-pastel-orange: linear-gradient(135deg, #fccb90 0%, #ebd77e 100%);
+            --grad-pastel-red: linear-gradient(135deg, #ff9a9e 0%, #ff3a13 100%);
+            --grad-pastel-yellow: linear-gradient(135deg, #f6d365 0%, #fffb8a 100%);
+            --grad-pastel-brown: linear-gradient(135deg, #d299c2 0%, #a3825d 100%);
+            --grad-pastel-blue: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            --grad-pastel-purple: linear-gradient(135deg, #e0c3fc 0%, #a665b9 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- LIVING BACKGROUND --- */
+        .fog {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(20, 20, 30, 0.5), #09090b 90%);
+            z-index: -2;
+        }
+        .orb {
+            position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.4; z-index: -1;
+            animation: float 20s infinite ease-in-out;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #4facfe; animation-delay: 0s; }
+        .orb-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: #753a88; animation-delay: -5s; }
+        .orb-3 { top: 40%; left: 30%; width: 40vw; height: 40vw; background: #e65c00; opacity: 0.2; animation-delay: -10s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 { letter-spacing: -0.05em; line-height: 1.1; }
+        .gradient-text { background: var(--grad-dream); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        
+        /* Specialized Text Classes */
+        .text-copper { background: var(--grad-copper); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-blood { background: var(--grad-blood); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-soul { background: var(--grad-soul); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        
+        /* Pastel Classes for Welcome Section */
+        .text-wild { background: var(--grad-pastel-green); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+        .text-resource { background: var(--grad-pastel-orange); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+        .text-nether { background: var(--grad-pastel-red); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+        .text-end { background: var(--grad-pastel-yellow); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+        .text-jobs { background: var(--grad-pastel-green); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+        .text-shops { background: var(--grad-pastel-brown); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+        .text-capsule { background: var(--grad-pastel-blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+        .text-tether { background: var(--grad-blood); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        .text-purple { background: var(--grad-pastel-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(9, 9, 11, 0.7);
+            backdrop-filter: blur(15px);
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 0.1em; text-decoration: none; }
+        .nav-links a {
+            color: var(--text-dim); text-decoration: none; margin-left: 2rem;
+            transition: 0.3s; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+        }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .store-link { color: #fda085 !important; }
+
+        /* --- HERO --- */
+        header {
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+        }
+        h1 { font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 1rem; text-shadow: 0 0 30px rgba(142, 197, 252, 0.2); }
+        .subtitle { font-size: 1.2rem; color: var(--text-dim); max-width: 600px; margin-bottom: 3rem; font-style: italic; }
+        
+        .ip-box {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex; align-items: center; gap: 1rem;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .ip-box:hover { background: var(--glass-hover); border-color: rgba(142, 197, 252, 0.5); transform: scale(1.02); }
+        .ip-address { font-family: 'Courier New', monospace; font-weight: bold; letter-spacing: 0.05em; color: #fff; }
+        .status-dot { width: 10px; height: 10px; background: #ff5555; border-radius: 50%; box-shadow: 0 0 10px #ff5555; transition: 0.3s; }
+
+        /* --- SECTIONS GENERAL --- */
+        section { padding: 6rem 10%; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .section-title { font-size: 3rem; margin-bottom: 3rem; text-align: center; }
+        .section-intro { text-align: center; max-width: 700px; margin: -2rem auto 4rem auto; color: var(--text-dim); line-height: 1.6; }
+
+        /* --- CARDS & GRID --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 16px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover { transform: translateY(-5px); background: var(--glass-hover); border-color: rgba(255,255,255,0.2); }
+        .card h3 { font-size: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+        
+        /* FIXED BULLET LIST */
+        .card ul { list-style: none; padding: 0; }
+        .card li { 
+            color: var(--text-dim); line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.8rem;
+            position: relative; padding-left: 1.2rem; /* Indent for bullet */
+        }
+        .card li::before { 
+            content: "•"; color: #8EC5FC; font-weight: bold; 
+            position: absolute; left: 0; top: 0;
+        }
+
+        /* --- CRAFTING SECTION (The Foundry) --- */
+        .foundry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem auto;
+            justify-content: center;
+        }
+        
+        .item-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 12px;
+            transition: 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+        }
+        .item-card:hover { border-color: var(--text-dim); transform: translateY(-5px); background: rgba(255,255,255,0.03); }
+        .item-icon { 
+            width: 50px; height: 50px; margin: 0 auto 1rem auto; 
+            background: rgba(255,255,255,0.05); 
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+        }
+        .item-name { font-weight: bold; margin-bottom: 0.5rem; display: block; font-size: 1rem; }
+        .item-desc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.4; }
+
+        /* --- RANKS SECTION --- */
+        .rank-list { display: flex; flex-direction: column; gap: 1rem; max-width: 900px; margin: 0 auto; }
+        .rank-item {
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            padding: 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+        .rank-item:hover { background: var(--glass-active); border-color: rgba(255,255,255,0.2); }
+        .rank-title-box { flex: 1; min-width: 150px; }
+        .rank-name { font-weight: 800; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .rank-perks { flex: 2; color: var(--text-dim); font-size: 0.9rem; text-align: right; line-height: 1.6; }
+        .rank-perks span { color: #fff; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; margin-left: 5px; font-size: 0.8rem; }
+
+        /* --- TREASURY & LEADERBOARD --- */
+        .store-container { display: flex; flex-wrap: wrap; gap: 4rem; justify-content: center; align-items: center; }
+        .store-cta { flex: 1; min-width: 300px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        
+        .leaderboard { 
+            flex: 1; min-width: 300px; max-width: 450px; 
+            background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 20px; 
+            border: 1px solid var(--glass-border); 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .btn-store {
+            background: var(--grad-gold);
+            color: #000;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 2rem;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(246, 211, 101, 0.2);
+        }
+        .btn-store:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(246, 211, 101, 0.4); }
+
+        /* Visual Leaderboard Styles */
+        .leaderboard-grid { display: flex; flex-direction: column; gap: 1rem; }
+        .top-spender {
+            background: linear-gradient(180deg, rgba(246, 211, 101, 0.1) 0%, rgba(0,0,0,0) 100%);
+            border: 1px solid #f6d365;
+            padding: 1.5rem; border-radius: 12px;
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+            position: relative; overflow: hidden;
+        }
+        .top-spender::before { content: "👑"; font-size: 1.5rem; position: absolute; top: 0.5rem; right: 0.5rem; }
+        .skin-render { height: 120px; width: auto; margin-bottom: 0.5rem; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); transition: 0.3s; }
+        .top-spender:hover .skin-render { transform: scale(1.1) rotate(2deg); }
+        .top-name { font-size: 1.2rem; font-weight: 800; color: #fff; }
+        .top-amount { color: #f6d365; font-family: monospace; font-size: 1.1rem; }
+        .top-label { color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+
+        .runner-row {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: 0.2s;
+        }
+        .runner-row:hover { background: rgba(255,255,255,0.05); border-radius: 8px; }
+        .head-icon { width: 32px; height: 32px; border-radius: 4px; }
+        .runner-info { flex-grow: 1; }
+        .runner-name { display: block; font-weight: bold; font-size: 0.95rem; }
+        .runner-amount { color: #8EC5FC; font-family: monospace; font-size: 0.9rem; }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 4rem; color: var(--text-dim); font-size: 0.8rem; border-top: 1px solid var(--glass-border); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            h1 { font-size: 3rem; }
+            .rank-item { flex-direction: column; text-align: center; gap: 1rem; }
+            .rank-perks { text-align: center; }
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- THE LIVING BACKGROUND -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="fog"></div>
+
+    <nav>
+        <a href="#" class="logo gradient-text">DREAMWORLD</a>
+        <div class="nav-links">
+            <a href="#welcome">The Reality</a>
+            <a href="#foundry">The Foundry</a>
+            <a href="#ranks">Hierarchy</a>
+            <a href="wiki.html">Archives</a>
+            <a href="store.html" class="store-link">Store</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1 class="gradient-text">D R E A M W O R L D</h1>
+        <p class="subtitle">"The Waking World is behind you."</p>
+        
+        <div class="ip-box" onclick="copyIP()">
+            <div class="status-dot" id="dot"></div>
+            <span class="ip-address" id="ip">dreamworld.apexmc.co:19132</span>
+            <span style="color:var(--text-dim); font-size: 0.8rem;">(Click to Copy)</span>
+        </div>
+    </header>
+
+    <!-- WELCOME SECTION (Clean & Fixed Spacing) -->
+    <section id="welcome">
+        <h2 class="section-title">Welcome to the Dream</h2>
+        <p class="section-intro">This is a <strong>Towny & Economy</strong> survival server. But the rules of physics are merely suggestions.</p>
+        
+        <div class="grid">
+            <!-- BOX 1: THE CANVAS -->
+            <div class="card">
+                <h3>The Canvas</h3>
+                <ul>
+                    <li>Build in the <span class="text-wild">Wild</span>, protected by Towny.</li>
+                    <li>Gather materials in the <span class="text-resource">Resource</span> world.</li>
+                    <li>Ascend ranks to unlock the <span class="text-nether">Nether</span>.</li>
+                    <li>Survive to reach <span class="text-end">The End</span>.</li>
+                </ul>
+            </div>
+            
+            <!-- BOX 2: THE VEINS -->
+            <div class="card">
+                <h3>The Veins</h3>
+                <ul>
+                    <li>The economy is entirely player-driven.</li>
+                    <li>Earn money through <span class="text-jobs">Jobs</span>.</li>
+                    <li>Buy and sell via <span class="text-shops">Chest Shops</span>.</li>
+                    <li>Find <span class="text-capsule">Capsules</span> randomly while working.</li>
+                </ul>
+            </div>
+            
+            <!-- BOX 3: THE ANOMALIES -->
+            <div class="card">
+                <h3>The Anomalies</h3>
+                <ul>
+                    <li><span class="text-capsule">Capsules</span> contain rare, glitched tools.</li>
+                    <li>The <span class="text-tether">Tether</span> enchantment defies durability.</li>
+                    <li>Items fracture and freeze when broken (Ghost Mode).</li>
+                    <li>Repair them with <span class="text-tether">Tether Coils</span> to keep them alive.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUNDRY SECTION -->
+    <section id="foundry">
+        <h2 class="section-title">The Foundry</h2>
+        <p class="section-intro">
+            Gather <span class="text-copper">Copper</span> and <span style="color:#fff">String</span>. They are the blood of this world.
+            <br>Refine them. Bind them. Stabilize the dream.
+        </p>
+
+        <!-- SUBTITLE 1 -->
+        <h3 style="text-align:center; margin-bottom:1rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.2em;">The Components</h3>
+
+        <!-- ROW 1: THE INGREDIENTS -->
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto 3rem auto;">
+            
+            <div class="item-card">
+                <div class="item-icon">🕸️</div> 
+                <span class="item-name">Bindthread</span>
+                <span class="item-desc">Crafted from <strong>String</strong>. The base suture for all advanced crafting.</span>
+            </div>
+
+            <div class="item-card">
+                <div class="item-icon" style="color:#e65c00">🔶</div> 
+                <span class="item-name copper-text">Copper Tubing</span>
+                <span class="item-desc">Crafted from <strong>Copper</strong>. Conducts energy. Essential for structure.</span>
+            </div>
+
+            <div class="item-card">
+                <div class="item-icon" style="color:#e65c00">⛓️</div> 
+                <span class="item-name" style="color: #fff;">Soul Cord</span>
+                <span class="item-desc"><strong>Tubing + Bindthread</strong>. The empty vessel required for Coils.</span>
+            </div>
+        </div>
+
+        <!-- SUBTITLE 2 -->
+        <h3 style="text-align:center; margin-bottom:1rem; color:#94a3b8; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.2em;">The Artifacts</h3>
+
+        <!-- ROW 2: THE ARTIFACTS -->
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto;">
+            
+            <div class="item-card">
+                <div class="item-icon">🌟</div> 
+                <span class="item-name text-copper">Mini Nova</span>
+                <span class="item-desc">Found in the world. A spark of energy used to craft the Coil.</span>
+            </div>
+
+            <div class="item-card" style="border-color: rgba(255, 133, 133, 0.52);">
+                <div class="item-icon">🧬</div> 
+                <span class="item-name text-blood">Tether Coil</span>
+                <span class="item-desc"><strong>Nova + Cord</strong>. Repairs Fractured 'Tether' tools.</span>
+            </div>
+
+            <!-- Machine Soul (Aqua Gradient) -->
+            <div class="item-card">
+                <div class="item-icon">👻</div> 
+                <span class="item-name text-soul">Machine Soul</span>
+                <span class="item-desc">Found in <strong>Crates</strong>. A rare echo required for Soulbinds.</span>
+            </div>
+
+            <!-- Soulbind (Purple Gradient + Purple Border) -->
+            <div class="item-card" style="border-color: #d4a6ff85;">
+                <div class="item-icon">🔗</div> 
+                <span class="item-name text-purple">Soulbind</span>
+                <span class="item-desc"><strong>Soul + Cord</strong>. Apply to grant <strong>Keep on Death</strong>.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- RANKS SECTION -->
+    <section id="ranks">
+        <h2 class="section-title">The Hierarchy</h2>
+        <div class="rank-list">
+            
+            <div class="rank-item">
+                <div class="rank-title-box"><span class="rank-name" style="color: #aaaaaa">Woke</span></div>
+                <div class="rank-perks">Access to Spawn. Rankup needed to begin the adventure.</div>
+            </div>
+
+            <div class="rank-item">
+                <div class="rank-title-box"><span class="rank-name" style="color: #ffffff">Halfwake</span></div>
+                <div class="rank-perks">Access to Wild & Towns. <span>1 Job</span> <span>1 Sethome</span></div>
+            </div>
+
+            <div class="rank-item">
+                <div class="rank-title-box"><span class="rank-name" style="color: #ffff55">Drifter</span></div>
+                <div class="rank-perks">Access to Nether. Enderchest unlocked. <span>2 Jobs</span> <span>3 Sethomes</span></div>
+            </div>
+
+            <div class="rank-item">
+                <div class="rank-title-box"><span class="rank-name" style="color: #55ffff">Lucid</span></div>
+                <div class="rank-perks">Access to End. /nickname. /workbench. <span>3 Jobs</span> <span>5 Sethomes</span></div>
+            </div>
+
+            <div class="rank-item">
+                <div class="rank-title-box"><span class="rank-name" style="color: #ff5555">Dormien</span></div>
+                <div class="rank-perks">Access to Nations. /back. Weather/Time control. <span>5 Jobs</span> <span>7 Sethomes</span></div>
+            </div>
+
+            <div class="rank-item">
+                <div class="rank-title-box"><span class="rank-name" style="color: #ff55ff">Astral</span></div>
+                <div class="rank-perks">Flight enabled. Nametags. /anvil. <span>5 Jobs</span> <span>10 Sethomes</span></div>
+            </div>
+
+            <div class="rank-item" style="border-color: rgba(255, 170, 0, 0.3); background: rgba(255, 170, 0, 0.1);">
+                <div class="rank-title-box"><span class="rank-name" style="color: #ffaa00">Elder</span></div>
+                <div class="rank-perks">Keep Inventory. Daily Rewards VIP. /heal. <span>5 Jobs</span> <span>20 Sethomes</span></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TREASURY & LEADERBOARD SPLIT -->
+    <section id="treasury">
+        <h2 class="section-title">The Treasury</h2>
+        <div class="store-container">
+            
+            <!-- LEFT: Call to Action -->
+            <div class="store-cta">
+                <h3 class="gradient-text">Support the Dream</h3>
+                <p>Acquire Crate Keys, Ranks, and visual upgrades to support the server maintenance.</p>
+                <a href="store.html" class="btn-store">Enter Store</a>
+            </div>
+
+            <!-- RIGHT: Visual Leaderboard -->
+            <div class="leaderboard">
+                <h3 style="text-align: center; margin-bottom: 1.5rem; color: #f6d365;">Top Dreamers (January)</h3>
+                <div id="visual-leaderboard" class="leaderboard-grid"></div>
+                <div style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; opacity: 0.5;">Updated manually</div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content" style="display:flex; justify-content:center; gap:2rem; margin-bottom:2rem;">
+            <a href="https://discord.gg/YOUR_INVITE_CODE" target="_blank" style="color:#fff; text-decoration:none; display:flex; align-items:center; gap:0.5rem;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+                <span>Join Discord</span>
+            </a>
+        </div>
+        <p class="gradient-text" style="font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem;">DREAMWORLD</p>
+        <p>Good luck. Oh... and don't wake up.</p>
+        <p style="margin-top: 2rem; opacity: 0.3;">&copy; 2026 Dreamworld Network. Not affiliated with Mojang AB.</p>
+    </footer>
+
+    <script>
+        function copyIP() {
+            navigator.clipboard.writeText("dreamworld.apexmc.co:19132");
+            
+            const ipElement = document.getElementById("ip");
+            const dot = document.getElementById("dot");
+            const originalText = ipElement.innerText;
+            
+            // 1. Change Text
+            ipElement.innerText = "COPIED!";
+            ipElement.style.color = "#4ade80"; // Green text
+            
+            // 2. Turn Dot Green
+            dot.style.backgroundColor = "#4ade80";
+            dot.style.boxShadow = "0 0 10px #4ade80";
+
+            // 3. Revert after 2 seconds
+            setTimeout(() => {
+                ipElement.innerText = originalText;
+                ipElement.style.color = "#fff";
+                
+                // Revert Dot to Red
+                dot.style.backgroundColor = "#ff5555";
+                dot.style.boxShadow = "0 0 10px #ff5555";
+            }, 2000);
+        }
+
+        // --- VISUAL LEADERBOARD CONFIG ---
+        const topDonators = [
+            { name: "Braunfuchswelpe", amount: "150.00" }, // The King
+            { name: "ilrc", amount: "50.00" },
+            { name: "ObadaHawarneh", amount: "25.00" },
+            { name: "KingCL4M", amount: "10.00" }
+        ];
+
+        const container = document.getElementById('visual-leaderboard');
+        
+        // 1. Render the Top Spender (Big Card)
+        if (topDonators.length > 0) {
+            const top = topDonators[0];
+            const topCard = document.createElement('div');
+            topCard.className = 'top-spender';
+            topCard.innerHTML = `
+                <span class="top-label">Top Monthly Spender</span>
+                <img src="https://minotar.net/armor/body/${top.name}/150.png" class="skin-render" alt="${top.name}">
+                <div class="top-name">${top.name}</div>
+                <div class="top-amount">$${top.amount}</div>
+            `;
+            container.appendChild(topCard);
+        }
+
+        // 2. Render the Runners Up (List)
+        const listContainer = document.createElement('div');
+        listContainer.style.marginTop = "1rem";
+        
+        topDonators.slice(1).forEach(player => {
+            const row = document.createElement('div');
+            row.className = 'runner-row';
+            row.innerHTML = `
+                <img src="https://minotar.net/helm/${player.name}/32.png" class="head-icon">
+                <div class="runner-info">
+                    <span class="runner-name">${player.name}</span>
+                </div>
+                <span class="runner-amount">$${player.amount}</span>
+            `;
+            listContainer.appendChild(row);
+        });
+        
+        container.appendChild(listContainer);
+    </script>
+</body>
+</html>

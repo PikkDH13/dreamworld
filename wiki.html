@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamworld | The Archives</title>
+    <style>
+        /* --- BASELINE STYLES --- */
+        :root {
+            --bg-dark: #09090b;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-active: rgba(255, 255, 255, 0.08);
+            --text-main: #e0e0e0;
+            --text-dim: #94a3b8;
+            --grad-dream: linear-gradient(135deg, #E0C3FC 0%, #8EC5FC 100%);
+            --grad-copper: linear-gradient(135deg, #e65c00 0%, #f9d423 100%);
+            --grad-blood: linear-gradient(135deg, #ff0000 0%, #550000 100%);
+            --grad-soul: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: var(--text-main); }
+
+        /* Background FX */
+        .fog { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 50% 50%, rgba(142, 197, 252, 0.05), transparent 60%); z-index: -1; animation: drift 30s infinite linear; }
+        @keyframes drift { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Typography */
+        .gradient-text { background: var(--grad-dream); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h1 { font-size: 3rem; margin-bottom: 1rem; }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; margin-top: 3rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--glass-border); color: #fff; }
+        h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #E0C3FC; margin-top: 1.5rem; }
+        p, li { color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem; }
+        ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+        strong { color: #fff; }
+
+        /* --- LAYOUT --- */
+        nav { position: fixed; top: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(9, 9, 11, 0.9); backdrop-filter: blur(12px); z-index: 100; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 0.1em; text-decoration: none; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 2rem; font-size: 0.85rem; text-transform: uppercase; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: #fff; }
+        .active-link { color: #d4af37 !important; }
+
+        .wiki-container { display: flex; max-width: 1400px; margin: 0 auto; padding-top: 8rem; min-height: 100vh; }
+        
+        /* SIDEBAR NAV */
+        .wiki-sidebar {
+            width: 250px; flex-shrink: 0; position: sticky; top: 8rem; height: calc(100vh - 10rem);
+            overflow-y: auto; padding-right: 2rem; border-right: 1px solid var(--glass-border);
+        }
+        .wiki-nav-item {
+            display: block; padding: 0.8rem 1rem; color: var(--text-dim); text-decoration: none;
+            border-radius: 8px; margin-bottom: 0.5rem; transition: 0.2s; font-size: 0.9rem;
+        }
+        .wiki-nav-item:hover, .wiki-nav-item.active { background: var(--glass-active); color: #fff; }
+        .wiki-nav-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #666; margin: 1.5rem 0 0.5rem 1rem; font-weight: 800; }
+
+        /* MAIN CONTENT */
+        .wiki-content { flex: 1; padding: 0 4rem 4rem 4rem; }
+        
+        /* SPECIAL BOXES */
+        .info-box { background: var(--glass); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; }
+        .recipe-box { 
+            display: flex; align-items: center; gap: 1rem; background: rgba(0,0,0,0.2); 
+            padding: 1rem; border-radius: 8px; border: 1px solid var(--glass-border); margin-bottom: 1rem; 
+        }
+        .recipe-arrow { color: #666; font-size: 1.2rem; }
+        .item-badge { 
+            display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.05); 
+            padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; color: #fff;
+        }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 4rem; color: var(--text-dim); font-size: 0.8rem; border-top: 1px solid var(--glass-border); margin-top: auto; }
+
+        @media (max-width: 900px) {
+            .wiki-container { flex-direction: column; }
+            .wiki-sidebar { width: 100%; position: relative; top: 0; height: auto; padding: 1rem 5%; border-right: none; border-bottom: 1px solid var(--glass-border); margin-bottom: 2rem; }
+            .wiki-content { padding: 0 5%; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="fog"></div>
+
+    <nav>
+        <a href="index.html" class="logo gradient-text">DREAMWORLD</a>
+        <div class="nav-links">
+            <a href="index.html">Reality</a>
+            <a href="store.html">The Treasury</a>
+            <a href="#" class="active-link">Archives</a>
+        </div>
+    </nav>
+
+    <div class="wiki-container">
+        
+        <!-- SIDEBAR -->
+        <div class="wiki-sidebar">
+            <div class="wiki-nav-header">Introduction</div>
+            <a href="#welcome" class="wiki-nav-item active">Welcome</a>
+            <a href="#rules" class="wiki-nav-item">The Laws</a>
+            
+            <div class="wiki-nav-header">Gameplay</div>
+            <a href="#towny" class="wiki-nav-item">Towny & Claims</a>
+            <a href="#jobs" class="wiki-nav-item">Jobs & Economy</a>
+            <a href="#worlds" class="wiki-nav-item">The Worlds</a>
+            
+            <div class="wiki-nav-header">The Foundry</div>
+            <a href="#anomalies" class="wiki-nav-item" style="color:#d4af37">Anomalies</a>
+            <a href="#crafting" class="wiki-nav-item">Recipes</a>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="wiki-content">
+            
+            <!-- SECTION: WELCOME -->
+            <section id="welcome">
+                <h1 class="gradient-text">The Archives</h1>
+                <p>Welcome to the documented memory of Dreamworld. Here lies the logic behind the drift. Read carefully; knowledge is the only thing you keep when you wake up.</p>
+                <div class="info-box">
+                    <strong>Server IP:</strong> <span style="color:#4ade80; font-family:monospace;">dreamworld.apexmc.co:19132</span><br>
+                    <strong>Version:</strong> Java & Bedrock (1.21.10)
+                </div>
+            </section>
+
+            <!-- SECTION: RULES -->
+            <section id="rules">
+                <h2>The Laws</h2>
+                <p>Physics works differently here, but conduct remains absolute.</p>
+                <ul>
+                    <li><strong>No Hacking or Exploits:</strong> Do not manipulate the code of the dream.</li>
+                    <li><strong>Respect the Drift:</strong> Hate speech and harassment cause instability. Be decent.</li>
+                    <li><strong>Griefing:</strong> Allowed in the Wild, forbidden in Towns. Protect your land.</li>
+                    <li><strong>Lag Machines:</strong> Any attempt to crash the reality will result in a ban.</li>
+                </ul>
+            </section>
+
+            <!-- SECTION: TOWNY -->
+            <section id="towny">
+                <h2>Towny & Anchors</h2>
+                <p>To survive without fading, you must anchor yourself. A <strong>Town</strong> is a protected area where you and others can build safely.</p>
+                <h3>Getting Started</h3>
+                <p>Type <code>/t new [Name]</code> to create a town (Costs Money). <br>
+                Type <code>/t invite [Player]</code> to grow your population.</p>
+                <p><strong>Upkeep:</strong> Towns require gold to stay materialized. Ensure your Town Bank (<code>/t deposit</code>) is funded, or your town will fall.</p>
+            </section>
+
+            <!-- SECTION: JOBS -->
+            <section id="jobs">
+                <h2>Jobs & Economy</h2>
+                <p>The economy is entirely player-run. There are no Admin shops. The value of an item is what another dreamer is willing to pay.</p>
+                <h3>Employment</h3>
+                <p>Join up to 3 jobs (depending on rank) using <code>/jobs browse</code>. <br>
+                Earn money by performing actions: Mining, Woodcutting, Hunting, etc.</p>
+                <h3>Capsules</h3>
+                <p>While working, you may find <strong style="color:#d4af37">Capsules</strong>. These are rare drops containing items from outside the normal loot table.</p>
+            </section>
+
+            <!-- SECTION: ANOMALIES -->
+            <section id="anomalies">
+                <h2>The Anomalies</h2>
+                <p>Capsules often contain tools with the <strong class="blood-text">Tether</strong> enchantment. These items defy standard durability rules.</p>
+                
+                <div class="info-box" style="border-color: rgba(255, 0, 0, 0.3);">
+                    <h3>⚠️ Fracture Warning</h3>
+                    <p>When a Tethered item reaches <strong>critical durability</strong> (< 10), it will <strong>Fracture</strong>.</p>
+                    <p>A Fractured item loses all stats and enchantments. It becomes useless "Ghost Gear" until repaired. It does not break, but it cannot be used.</p>
+                    <p>To repair it, you must use a <strong style="color:#4facfe">Tether Coil</strong>.</p>
+                </div>
+            </section>
+
+            <!-- SECTION: CRAFTING -->
+            <section id="crafting">
+                <h2>Foundry Recipes</h2>
+                <p>The logic here is woven from String and Copper. You must refine these base materials to create advanced components.</p>
+
+                <h3>Base Components</h3>
+                <div class="recipe-box">
+                    <div class="item-badge">String</div>
+                    <div class="recipe-arrow">➜</div>
+                    <div class="item-badge">Bindthread</div>
+                </div>
+                <div class="recipe-box">
+                    <div class="item-badge" style="color:#e65c00; border-color:#e65c00;">Copper Ingot</div>
+                    <div class="recipe-arrow">➜</div>
+                    <div class="item-badge" style="color:#e65c00; border-color:#e65c00;">Copper Tubing</div>
+                </div>
+                <div class="recipe-box">
+                    <div class="item-badge">Bindthread</div> 
+                    <span style="color:#666">+</span>
+                    <div class="item-badge" style="color:#e65c00;">Copper Tubing</div>
+                    <div class="recipe-arrow">➜</div>
+                    <div class="item-badge" style="color:#4facfe; border-color:#4facfe;">Soul Cord</div>
+                </div>
+
+                <h3>Advanced Artifacts</h3>
+                
+                <p><strong>Tether Coil:</strong> Used to repair Fractured items.</p>
+                <div class="recipe-box">
+                    <div class="item-badge" style="color:#ffd700;">Mini Nova</div>
+                    <span style="color:#666">+</span>
+                    <div class="item-badge" style="color:#4facfe;">Soul Cord</div>
+                    <div class="recipe-arrow">➜</div>
+                    <div class="item-badge" style="color:#E0C3FC; border-color:#E0C3FC;">Tether Coil</div>
+                </div>
+
+                <p><strong>Soulbind:</strong> Apply to an item to grant <strong>Keep on Death</strong>.</p>
+                <div class="recipe-box">
+                    <div class="item-badge" style="color:#E0C3FC;">Machine Soul</div>
+                    <span style="color:#666">+</span>
+                    <div class="item-badge" style="color:#4facfe;">Soul Cord</div>
+                    <div class="recipe-arrow">➜</div>
+                    <div class="item-badge" style="color:#ff0000; border-color:#ff0000;">Soulbind</div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content" style="display:flex; justify-content:center; gap:2rem; margin-bottom:2rem;">
+            <a href="#" style="color:#fff; text-decoration:none; display:flex; align-items:center; gap:0.5rem;">
+                <!-- Discord Icon -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+                <span>Join Discord</span>
+            </a>
+        </div>
+        <p style="opacity: 0.5;">&copy; 2026 Dreamworld Network.</p>
+    </footer>
+
+</body>
+</html>
